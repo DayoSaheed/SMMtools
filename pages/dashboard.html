@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusinessPro - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg hidden md:block">
+            <div class="flex items-center justify-center h-16 border-b">
+                <span class="text-xl font-bold text-blue-600">BusinessPro</span>
+            </div>
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600">
+                    <span>Dashboard</span>
+                </a>
+                <a href="invoices.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Invoices</span>
+                </a>
+                <a href="expenses.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Expenses</span>
+                </a>
+                <a href="customers.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Customers</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between h-16 px-6">
+                    <h1 class="text-xl font-semibold">Dashboard</h1>
+                    <div class="flex items-center">
+                        <button class="flex items-center text-gray-600 hover:text-gray-900">
+                            <span class="mr-2">John Doe</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-500 text-sm font-medium">Total Revenue</h3>
+                        <p class="text-2xl font-semibold text-gray-900">$24,563.00</p>
+                        <span class="text-green-600 text-sm">+2.5% from last month</span>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-500 text-sm font-medium">Outstanding Invoices</h3>
+                        <p class="text-2xl font-semibold text-gray-900">$4,128.00</p>
+                        <span class="text-red-600 text-sm">8 invoices pending</span>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-500 text-sm font-medium">Total Expenses</h3>
+                        <p class="text-2xl font-semibold text-gray-900">$12,463.00</p>
+                        <span class="text-gray-600 text-sm">This month</span>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-500 text-sm font-medium">Active Customers</h3>
+                        <p class="text-2xl font-semibold text-gray-900">64</p>
+                        <span class="text-green-600 text-sm">+3 this month</span>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-900 text-lg font-medium mb-4">Revenue Overview</h3>
+                        <canvas id="revenueChart" height="200"></canvas>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-gray-900 text-lg font-medium mb-4">Expense Categories</h3>
+                        <canvas id="expenseChart" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6">
+                        <h3 class="text-gray-900 text-lg font-medium mb-4">Recent Activity</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-900">New invoice created</p>
+                                    <p class="text-gray-500 text-sm">Invoice #1234 for $1,200.00</p>
+                                </div>
+                                <span class="text-gray-500 text-sm">2 hours ago</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-900">Payment received</p>
+                                    <p class="text-gray-500 text-sm">Invoice #1230 for $3,400.00</p>
+                                </div>
+                                <span class="text-gray-500 text-sm">5 hours ago</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-900">New customer added</p>
+                                    <p class="text-gray-500 text-sm">Tech Solutions Inc.</p>
+                                </div>
+                                <span class="text-gray-500 text-sm">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

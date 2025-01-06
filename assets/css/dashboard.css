@@ -1,0 +1,96 @@
+/* Dashboard specific styles */
+
+/* Card hover effects */
+.stat-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Custom scrollbar */
+.overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #e5e7eb transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 3px;
+}
+
+/* Animation for stats */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-value {
+    animation: countUp 0.5s ease-out forwards;
+}
+
+/* Chart container styles */
+.chart-container {
+    position: relative;
+    min-height: 300px;
+}
+
+/* Activity feed styles */
+.activity-item {
+    transition: background-color 0.2s ease;
+}
+
+.activity-item:hover {
+    background-color: #f9fafb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .chart-container {
+        min-height: 250px;
+    }
+}
+
+/* Loading state styles */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navigation active state */
+.nav-link.active {
+    background-color: #f0f5ff;
+    color: #2563eb;
+    border-left: 3px solid #2563eb;
+}

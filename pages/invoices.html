@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusinessPro - Invoice Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/invoice.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar (same as dashboard) -->
+        <aside class="w-64 bg-white shadow-lg hidden md:block">
+            <div class="flex items-center justify-center h-16 border-b">
+                <span class="text-xl font-bold text-blue-600">BusinessPro</span>
+            </div>
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Dashboard</span>
+                </a>
+                <a href="invoices.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600">
+                    <span>Invoices</span>
+                </a>
+                <a href="expenses.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Expenses</span>
+                </a>
+                <a href="customers.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <span>Customers</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between h-16 px-6">
+                    <h1 class="text-xl font-semibold">Invoice Management</h1>
+                    <button id="createInvoiceBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Create Invoice
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Invoice Filters -->
+                <div class="bg-white rounded-lg shadow p-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Status</label>
+                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option value="all">All</option>
+                                <option value="paid">Paid</option>
+                                <option value="pending">Pending</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Date Range</label>
+                            <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Customer</label>
+                            <input type="text" placeholder="Search customer..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Amount Range</label>
+                            <div class="flex space-x-2">
+                                <input type="number" placeholder="Min" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <input type="number" placeholder="Max" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoices List -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Invoice #
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Amount
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="invoicesList">
+                            <!-- Invoice rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Invoice Creation Modal -->
+    <div id="invoiceModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Create New Invoice</h3>
+                <button id="closeModal" class="text-gray-600 hover:text-gray-900">&times;</button>
+            </div>
+            <form id="invoiceForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Customer</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option value="">Select Customer</option>
+                            <!-- Customer options will be dynamically added -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Due Date</label>
+                        <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Invoice Items -->
+                <div class="space-y-4">
+                    <h4 class="font-medium">Invoice Items</h4>
+                    <div id="invoiceItems" class="space-y-4">
+                        <!-- Invoice items will be dynamically added here -->
+                    </div>
+                    <button type="button" id="addItemBtn" class="text-blue-600 hover:text-blue-700">+ Add Item</button>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="px-4 py-2 border rounded-md hover:bg-gray-100">Save as Draft</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Create Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/invoice.js"></script>
+</body>
+</html>
